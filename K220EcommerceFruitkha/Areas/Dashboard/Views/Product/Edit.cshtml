@@ -1,0 +1,29 @@
+﻿@model Product
+
+
+
+<form method="post" enctype="multipart/form-data" class="col-6 m-auto my-3">
+    <input type="text" value="@Model.Name" class="form-control mb-4" name="Name" placeholder="Product name" />
+    <input type="text" value="@Model.Description" class="form-control mb-4" name="Description" placeholder="Description" />
+    <input type="number" value="@Model.Price" class="form-control mb-4" name="Price" placeholder="Price" />
+    <input type="number" value="@Model.Quantity" class="form-control mb-4" name="Quantity" placeholder="Quantity" />
+    <input type="hidden" name="OldPhoto" value="@Model.PhotoUrl" />
+    <br />
+    <img src="@Model.PhotoUrl" width="500" height="250" class="mb-2" />
+    <br />
+    <br />
+    <input type="file" class="form-control mb-4" name="NewPhoto" placeholder="PhotoUrl" />
+    <input type="number" value="@Model.Discount" class="form-control mb-4" name="Discount" placeholder="Discount" />
+    <span>
+        <label style="user-select: none" for="deleted">Is Delted</label>
+        <input id="deleted" @(Model.IsDeleted? "checked":null) type="checkbox" value="@Model.IsDeleted" name="IsDeleted" />
+    </span>
+    <select name="categoryId" class="form-control my-4">
+        @foreach (var category in ViewData["Categories"] as IEnumerable<Category>)
+        {
+            <option @(category.Id == Model.CategoryId? "selected": null) value="@category.Id">@category.Name</option>
+        }
+    </select>
+    <input type="submit" class="btn btn-outline-primary mt-2" value="Update" />
+</form>
+

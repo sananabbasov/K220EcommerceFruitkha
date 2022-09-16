@@ -1,0 +1,22 @@
+﻿
+
+<form method="post" enctype="multipart/form-data" class="col-6 m-auto my-3">
+    <input type="text" class="form-control mb-4" name="Name" placeholder="Product name" />
+    <input type="text" class="form-control mb-4" name="Description" placeholder="Description" />
+    <input type="number" class="form-control mb-4" name="Price" placeholder="Price" />
+    <input type="number" class="form-control mb-4" name="Quantity" placeholder="Quantity" />
+    <input type="file" class="form-control mb-4" name="NewPhoto" placeholder="PhotoUrl" />
+    <input type="number" class="form-control mb-4" name="Discount" placeholder="Discount" />
+    <span>
+        <label style="user-select: none" for="deleted">Is Delted</label>
+        <input id="deleted" type="checkbox" name="IsDeleted" />
+    </span>
+    <select name="categoryId" class="form-control my-4">
+        @foreach (var category in ViewData["Categories"] as IEnumerable<Category>)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+    </select>
+    <input type="submit" class="btn btn-outline-success mt-2" value="Create" />
+</form>
+
