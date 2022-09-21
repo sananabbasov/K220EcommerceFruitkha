@@ -23,8 +23,19 @@ namespace K220EcommerceFruitkha.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginDTO loginDTO)
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
+            var user = await _userManager.FindByEmailAsync(loginDTO.Email);
+            if (user == null)
+            {
+                ViewBag.UserNotFound = "Istifadeci tapilmadi";
+                return View();
+            }
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user, loginDTO.Password,false,false);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index","Home");
+            }
             return View();
         }
 
@@ -42,6 +53,7 @@ namespace K220EcommerceFruitkha.Areas.Dashboard.Controllers
                 Email = registerDTO.Email,
                 FirstName = registerDTO.FirstName,
                 LastName = registerDTO.LastName,
+                UserName = registerDTO.UserName
             };
             IdentityResult result = await _userManager.CreateAsync(newUser, registerDTO.Password);
             if (result.Succeeded)

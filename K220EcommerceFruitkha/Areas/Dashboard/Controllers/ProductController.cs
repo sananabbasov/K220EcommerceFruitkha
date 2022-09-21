@@ -1,12 +1,14 @@
 ﻿using K220EcommerceFruitkha.Data;
 using K220EcommerceFruitkha.Helper;
 using K220EcommerceFruitkha.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace K220EcommerceFruitkha.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
@@ -22,7 +24,6 @@ namespace K220EcommerceFruitkha.Areas.Dashboard.Controllers
             var products = _context.Products.Include(x => x.Category).ToList();
             return View(products);
         }
-
 
         [HttpGet]
         public IActionResult Create()

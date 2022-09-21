@@ -4,6 +4,7 @@ namespace K220EcommerceFruitkha.Helper
 {
     public static class ImageHelper
     {
+
         public static string UploadImage(IFormFile image, IWebHostEnvironment _env)
         {
             var path = "/uploads/"+ Guid.NewGuid() + image.FileName;

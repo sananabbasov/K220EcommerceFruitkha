@@ -14,6 +14,13 @@ builder.Services.AddDefaultIdentity<K220User>().AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.LoginPath = "/dashboard/auth/login";
+    option.LogoutPath = "/dashboard/auth/login";
+    option.AccessDeniedPath = "/";
+});
+
 var app = builder.Build();
 
 
@@ -30,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

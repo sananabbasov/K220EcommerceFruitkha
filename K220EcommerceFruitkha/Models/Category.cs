@@ -1,4 +1,6 @@
-﻿namespace K220EcommerceFruitkha.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace K220EcommerceFruitkha.Models
 {
     public class Category
     {
