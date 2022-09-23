@@ -1,0 +1,13 @@
+﻿@model Slider
+
+
+<form method="post" enctype="multipart/form-data" class="col-6 m-auto my-3">
+    <input type="text" value="@Model.Title" class="form-control mb-4" name="Title" placeholder="Title" />
+    <input type="text" value="@Model.SubTitle" class="form-control mb-4" name="SubTitle" placeholder="SubTitle" />
+    <input type="file" class="form-control mb-4" name="NewPhoto" />
+    <img width="250" height="250" src="@Model.PhotoUrl" class="img-fluid" />
+    <input type="hidden" value="@Model.PhotoUrl" name="OldPhoto" />
+    <br />
+    <input type="submit" class="btn btn-outline-warning mt-2" value="Update" />
+</form>
+

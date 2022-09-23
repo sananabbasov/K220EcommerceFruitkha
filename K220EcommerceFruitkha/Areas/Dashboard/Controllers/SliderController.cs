@@ -31,11 +31,12 @@ namespace K220EcommerceFruitkha.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Slider slider, IFormFile image)
+        public async Task<IActionResult> Create(Slider slider, IFormFile NewPhoto)
         {
             try
             {
-                slider.PhotoUrl = ImageHelper.UploadImage(image, _webHostEnvironment);
+                slider.PhotoUrl = ImageHelper.UploadImage(NewPhoto, _webHostEnvironment);
+                slider.CreatedDate = DateTime.Now;
                 _context.Sliders.Add(slider);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -44,6 +45,55 @@ namespace K220EcommerceFruitkha.Areas.Dashboard.Controllers
             {
                 return NotFound();
             }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var slider = await _context.Sliders.FirstOrDefaultAsync(x=>x.Id == id);
+            return View(slider);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Slider slider, IFormFile NewPhoto, string OldPhoto)
+        {
+            try
+            {
+                if (NewPhoto != null)
+                {
+                    slider.PhotoUrl = ImageHelper.UploadImage(NewPhoto, _webHostEnvironment);
+                }
+                else
+                {
+                    slider.PhotoUrl = OldPhoto;
+                }
+                _context.Sliders.Update(slider);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+            
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var slider = await _context.Sliders.FirstOrDefaultAsync(x=>x.Id == id);
+            return View(slider);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Slider slider)
+        {
+            var deletedSlider = await _context.Sliders.FirstOrDefaultAsync(x => x.Id == slider.Id);
+            deletedSlider.IsDeleted = true;
+            _context.Sliders.Update(deletedSlider);    
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }
