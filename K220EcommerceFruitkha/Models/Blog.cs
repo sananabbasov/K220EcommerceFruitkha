@@ -11,8 +11,8 @@ namespace K220EcommerceFruitkha.Models
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool IsDeleted { get; set; }
-        public int UserId { get; set; }
-        public K220User K220User { get; set; }
+        public string UserId { get; set; }
+        public K220User User { get; set; }
         public virtual List<Comment> Comments { get; set; }
     }
 }

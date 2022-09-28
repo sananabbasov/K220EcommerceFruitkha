@@ -36,9 +36,6 @@ namespace K220EcommerceFruitkha.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("K220UserId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("PhotoUrl")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -50,12 +47,13 @@ namespace K220EcommerceFruitkha.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("K220UserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Blogs");
                 });
@@ -432,11 +430,13 @@ namespace K220EcommerceFruitkha.Migrations
 
             modelBuilder.Entity("K220EcommerceFruitkha.Models.Blog", b =>
                 {
-                    b.HasOne("K220EcommerceFruitkha.Models.K220User", "K220User")
+                    b.HasOne("K220EcommerceFruitkha.Models.K220User", "User")
                         .WithMany()
-                        .HasForeignKey("K220UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("K220User");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("K220EcommerceFruitkha.Models.BlogTag", b =>

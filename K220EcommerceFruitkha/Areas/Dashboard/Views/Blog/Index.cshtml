@@ -42,13 +42,20 @@
                     @foreach (var blog in Model.Blogs)
                     {
                         <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>PhotoUrl</th>
-                            <th>Reviews</th>
-                            <th>Tags</th>
-                            <th>Last updated date</th>
-                            <th>Author</th>
+                            <th>@blog.Id</th>
+                            <th>@blog.Title</th>
+                            <th>
+                                <img src="@blog.PhotoUrl" width="150" height="100" />
+                            </th>
+                            <th>@blog.Hit</th>
+                            <th>
+                                @foreach (var blogTag in Model.BlogTags.Where(x=>x.BlogId == blog.Id))
+                                {
+                                    <span class="btn btn-outline-success btn-sm my-1">@blogTag.Tag.Name</span>
+                                }
+                            </th>
+                            <th>@blog.UpdatedDate.ToString("dd-MM-yyyy")</th>
+                            <th>@blog.User.FirstName @blog.User.LastName</th>
                             <th>Comment count</th>
                             <th>Deleted</th>
                             <td class="col-2">
